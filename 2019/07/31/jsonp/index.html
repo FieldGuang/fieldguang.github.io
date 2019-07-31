@@ -7,17 +7,17 @@
   
   <title>Jsonp的原理和实现 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="jsonp是一种跨越同源限制实现请求数据的方法。由于浏览器存在同源限制的策略，即只有当协议、域名、端口号都相同的情况下浏览器才会对服务器发起请求。但有个特列：即通过script标签从服务器请求数据不会受到浏览器同源策略的限制，这种方式有个缺点，只能使用Get请求。 概述jsonp是一种跨域通信的手段">
+  <meta name="description" content="jsonp是一种跨越同源限制实现请求数据的方法。由于浏览器存在同源限制的策略，即只有当协议、域名、端口号都相同的情况下浏览器才会对服务器发起请求。但有个特列：即通过script标签从服务器请求数据不会受到浏览器同源策略的限制，这种方式有个缺点，只能使用Get请求。 概述jsonp是一种跨域通信的手段 现在说一下使用jsonp实现跨域请求的原理： 前端在页面里添加一个回调方法： 12345&amp;lt;s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jsonp的原理和实现">
 <meta property="og:url" content="https://fieldguang.github.io/2019/07/31/jsonp/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="jsonp是一种跨越同源限制实现请求数据的方法。由于浏览器存在同源限制的策略，即只有当协议、域名、端口号都相同的情况下浏览器才会对服务器发起请求。但有个特列：即通过script标签从服务器请求数据不会受到浏览器同源策略的限制，这种方式有个缺点，只能使用Get请求。 概述jsonp是一种跨域通信的手段">
+<meta property="og:description" content="jsonp是一种跨越同源限制实现请求数据的方法。由于浏览器存在同源限制的策略，即只有当协议、域名、端口号都相同的情况下浏览器才会对服务器发起请求。但有个特列：即通过script标签从服务器请求数据不会受到浏览器同源策略的限制，这种方式有个缺点，只能使用Get请求。 概述jsonp是一种跨域通信的手段 现在说一下使用jsonp实现跨域请求的原理： 前端在页面里添加一个回调方法： 12345&amp;lt;s">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-07-31T08:56:29.148Z">
+<meta property="og:updated_time" content="2019-07-31T09:10:29.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jsonp的原理和实现">
-<meta name="twitter:description" content="jsonp是一种跨越同源限制实现请求数据的方法。由于浏览器存在同源限制的策略，即只有当协议、域名、端口号都相同的情况下浏览器才会对服务器发起请求。但有个特列：即通过script标签从服务器请求数据不会受到浏览器同源策略的限制，这种方式有个缺点，只能使用Get请求。 概述jsonp是一种跨域通信的手段">
+<meta name="twitter:description" content="jsonp是一种跨越同源限制实现请求数据的方法。由于浏览器存在同源限制的策略，即只有当协议、域名、端口号都相同的情况下浏览器才会对服务器发起请求。但有个特列：即通过script标签从服务器请求数据不会受到浏览器同源策略的限制，这种方式有个缺点，只能使用Get请求。 概述jsonp是一种跨域通信的手段 现在说一下使用jsonp实现跨域请求的原理： 前端在页面里添加一个回调方法： 12345&amp;lt;s">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -91,11 +91,25 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>jsonp是一种跨越同源限制实现请求数据的方法。<br>由于浏览器存在同源限制的策略，即只有当协议、域名、端口号都相同的情况下浏览器才会对服务器发起请求。<br>但有个特列：即通过script标签从服务器请求数据不会受到浏览器同源策略的限制，这种方式有个缺点，只能使用Get请求。</p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><pre><code>jsonp是一种跨域通信的手段</code></pre>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><pre><code>jsonp是一种跨域通信的手段
+现在说一下使用jsonp实现跨域请求的原理：
+前端在页面里添加一个回调方法：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">function</span> jsonpCallback(resData) &#123;</span><br><span class="line">        // 对回调数据进行处理</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+复制代码然后在需要发起jsonp请求的地方调用如下函数：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    // scr是请求的api地址，callback是回调函数，这里即是jsonpCallback函数</span><br><span class="line">    <span class="keyword">function</span> reqServerData(src, callback) &#123;</span><br><span class="line">        var scriptDom = document.createElement(<span class="string">'script'</span>)</span><br><span class="line">        var headDom = document.getElementByTag(<span class="string">'head'</span>)[0]</span><br><span class="line"></span><br><span class="line">        scriptDom.setAttribute(<span class="string">'src'</span>, src + <span class="string">'?'</span> + callback)</span><br><span class="line">        headDom.append(scriptDom)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+复制代码例如：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    reqServerData(<span class="string">'http://www.myweb.com/api/test.json'</span>, <span class="string">'jsonpCallback'</span>)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+复制代码当服务器收到请求后，会返回执行回调函数的脚本，并将处理好的数据作为函数的参数传入：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    jsonpCallback(&#123;title：<span class="string">'这是返回的数据'</span>, id: 1&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+复制代码浏览器执行这个回调函，请求成功。</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/07/31/jsonp/" data-id="cjyqzo0v20001h8r0lnomvfzy" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/07/31/jsonp/" data-id="cjyr16he80001psr0j82cnp7i" class="article-share-link">Share</a>
       
       
     </footer>
