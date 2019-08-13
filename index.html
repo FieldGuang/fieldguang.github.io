@@ -66,6 +66,41 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-call" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/12/call/" class="article-date">
+  <time datetime="2019-08-12T14:52:25.813Z" itemprop="datePublished">2019-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="js模拟call、apply、bind实现"><a href="#js模拟call、apply、bind实现" class="headerlink" title="js模拟call、apply、bind实现"></a>js模拟call、apply、bind实现</h2><h3 id="1、call模拟实现"><a href="#1、call模拟实现" class="headerlink" title="1、call模拟实现"></a>1、call模拟实现</h3><figure class="highlight plain"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myCall = function(context) &#123;</span><br><span class="line">  var contexts = context || window;</span><br><span class="line">  contexts.fn = this;</span><br><span class="line">  var args = [...arguments].slice(1);</span><br><span class="line">  var result = contexts.fn(...args);</span><br><span class="line">  delete contexts.fn;</span><br><span class="line">  return result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、apply模拟实现"><a href="#2、apply模拟实现" class="headerlink" title="2、apply模拟实现"></a>2、apply模拟实现</h3><figure class="highlight plain"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myApply = function(context) &#123;</span><br><span class="line">    var contexts = context || window;</span><br><span class="line">    contexts.fn = this;</span><br><span class="line">    var result;</span><br><span class="line">    if (arguments[1]) &#123;</span><br><span class="line">        result = contexts.fn(...arguments[1]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        result = contexts.fn();   </span><br><span class="line">    &#125;</span><br><span class="line">    delete contexts.fn;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、bind模拟实现"><a href="#3、bind模拟实现" class="headerlink" title="3、bind模拟实现"></a>3、bind模拟实现</h3><figure class="highlight plain"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myBind = function(context) &#123;</span><br><span class="line">  if (typeof this !== &apos;function&apos;) &#123;</span><br><span class="line">    throw new TypeError(&apos;Error&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">  var _this = this;</span><br><span class="line">  var args = [...arguments].slice(1);</span><br><span class="line">  return function F() &#123;</span><br><span class="line">    if (this instanceof F) &#123;</span><br><span class="line">        return new _this(...args, ...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    return _this.apply(context, args.concat(...arguments))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="call、apply、bind使用和区别"><a href="#call、apply、bind使用和区别" class="headerlink" title="call、apply、bind使用和区别"></a>call、apply、bind使用和区别</h3><p>这几个函数的作用是改变函数执行时的上下文，即<br>改变函数运行时的this指向。</p>
+<p>call和apply的区别在于，apply传的第二个参数得放进一个<br>数组里；bind则是返回改变了上下文后的一个函数</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fieldguang.github.io/2019/08/12/call/" data-id="cjz9d18yg0004bkr0aqkvwf5g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sort" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/03/sort/" class="article-date">
@@ -78,11 +113,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <hr>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h3 id="基本的排序算法"><a href="#基本的排序算法" class="headerlink" title="基本的排序算法"></a>基本的排序算法</h3><ul>
+<li>冒泡排序</li>
+<li>插入排序</li>
+<li>归并排序</li>
+<li>快速排序</li>
+<li>拓扑排序</li>
+<li>堆排序</li>
+<li>桶排序</li>
+</ul>
+<h4 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h4><p>递归的本质是函数调用函数本身<br>*把大规模的问题不断地变小，再进行推导的过程</p>
+<p>经典案例： 汉诺塔</p>
+<p>迭代法的时间复杂度的计算</p>
+<p>T(n)=2<em>T(n-1)+O(1) = 2</em>(2<em>T(n-2))+2+1<br>=2</em>(2<em>(2</em>T(n-3)))+(4+2+1)…<br>T(n)=2^k<em>T(n-k)+(2^k-1) =&gt;T(n)=2</em>2^n -1<br>O(n) = 2^n</p>
+<h4 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h4><ul>
+<li>从问题的起始点出发，不断尝试</li>
+<li>返回一步甚至多步再做选择，直到抵达终点的过程</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/03/sort/" data-id="cjyvnb9w70000c4r0pga1q3dj" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/03/sort/" data-id="cjz9d18yr0006bkr0fwu1ybqq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -139,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/03/array2/" data-id="cjyvnb9we0003c4r0cz6h6qka" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/03/array2/" data-id="cjz9d18ye0002bkr0fmhrjka1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/01/ajax/" data-id="cjyvnb9wc0001c4r0jjh8ckc1" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/01/ajax/" data-id="cjz9d18y70000bkr0h4dj1fx0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -230,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/07/31/array/" data-id="cjyvnb9wd0002c4r0v79pt2uv" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/07/31/array/" data-id="cjz9d18yd0001bkr0b0dglbm8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -286,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/07/31/jsonp/" data-id="cjyvnb9wo0005c4r01hysba2s" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/07/31/jsonp/" data-id="cjz9d18yh0005bkr06sut2yyq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -335,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/07/31/hello-world/" data-id="cjyvnb9wf0004c4r00u6jxapl" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/07/31/hello-world/" data-id="cjz9d18yf0003bkr0e57juu7w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -376,6 +429,10 @@
       <ul>
         
           <li>
+            <a href="/2019/08/12/call/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/03/sort/">(no title)</a>
           </li>
         
@@ -389,10 +446,6 @@
         
           <li>
             <a href="/2019/07/31/array/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/31/jsonp/">Jsonp的原理和实现</a>
           </li>
         
       </ul>

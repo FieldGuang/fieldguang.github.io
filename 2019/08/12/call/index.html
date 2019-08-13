@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="js模拟call、apply、bind实现1、call模拟实现js12345678Function.prototype.myCall = function(context) &amp;#123;  var contexts = context || window;  contexts.fn = this;  var args = [...arguments].slice(1);  var result">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://fieldguang.github.io/2019/08/12/call/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="js模拟call、apply、bind实现1、call模拟实现js12345678Function.prototype.myCall = function(context) &amp;#123;  var contexts = context || window;  contexts.fn = this;  var args = [...arguments].slice(1);  var result">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2019-08-13T05:02:46.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="js模拟call、apply、bind实现1、call模拟实现js12345678Function.prototype.myCall = function(context) &amp;#123;  var contexts = context || window;  contexts.fn = this;  var args = [...arguments].slice(1);  var result">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每日坚持</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://fieldguang.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-call" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/12/call/" class="article-date">
+  <time datetime="2019-08-12T14:52:25.813Z" itemprop="datePublished">2019-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="js模拟call、apply、bind实现"><a href="#js模拟call、apply、bind实现" class="headerlink" title="js模拟call、apply、bind实现"></a>js模拟call、apply、bind实现</h2><h3 id="1、call模拟实现"><a href="#1、call模拟实现" class="headerlink" title="1、call模拟实现"></a>1、call模拟实现</h3><figure class="highlight plain"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myCall = function(context) &#123;</span><br><span class="line">  var contexts = context || window;</span><br><span class="line">  contexts.fn = this;</span><br><span class="line">  var args = [...arguments].slice(1);</span><br><span class="line">  var result = contexts.fn(...args);</span><br><span class="line">  delete contexts.fn;</span><br><span class="line">  return result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、apply模拟实现"><a href="#2、apply模拟实现" class="headerlink" title="2、apply模拟实现"></a>2、apply模拟实现</h3><figure class="highlight plain"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myApply = function(context) &#123;</span><br><span class="line">    var contexts = context || window;</span><br><span class="line">    contexts.fn = this;</span><br><span class="line">    var result;</span><br><span class="line">    if (arguments[1]) &#123;</span><br><span class="line">        result = contexts.fn(...arguments[1]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        result = contexts.fn();   </span><br><span class="line">    &#125;</span><br><span class="line">    delete contexts.fn;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、bind模拟实现"><a href="#3、bind模拟实现" class="headerlink" title="3、bind模拟实现"></a>3、bind模拟实现</h3><figure class="highlight plain"><figcaption><span>js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myBind = function(context) &#123;</span><br><span class="line">  if (typeof this !== &apos;function&apos;) &#123;</span><br><span class="line">    throw new TypeError(&apos;Error&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">  var _this = this;</span><br><span class="line">  var args = [...arguments].slice(1);</span><br><span class="line">  return function F() &#123;</span><br><span class="line">    if (this instanceof F) &#123;</span><br><span class="line">        return new _this(...args, ...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">    return _this.apply(context, args.concat(...arguments))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="call、apply、bind使用和区别"><a href="#call、apply、bind使用和区别" class="headerlink" title="call、apply、bind使用和区别"></a>call、apply、bind使用和区别</h3><p>这几个函数的作用是改变函数执行时的上下文，即<br>改变函数运行时的this指向。</p>
+<p>call和apply的区别在于，apply传的第二个参数得放进一个<br>数组里；bind则是返回改变了上下文后的一个函数</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fieldguang.github.io/2019/08/12/call/" data-id="cjz9d18yg0004bkr0aqkvwf5g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/03/sort/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/12/call/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/sort/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/03/array2/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/01/ajax/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/31/array/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 field<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

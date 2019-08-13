@@ -7,14 +7,17 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="排序基本的排序算法 冒泡排序 插入排序 归并排序 快速排序 拓扑排序 堆排序 桶排序  递归算法递归的本质是函数调用函数本身*把大规模的问题不断地变小，再进行推导的过程 经典案例： 汉诺塔 迭代法的时间复杂度的计算 T(n)=2T(n-1)+O(1) = 2(2T(n-2))+2+1=2(2(2T(n-3)))+(4+2+1)…T(n)=2^kT(n-k)+(2^k-1) =&amp;gt;T(n)=2">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="https://fieldguang.github.io/2019/08/03/sort/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="排序基本的排序算法 冒泡排序 插入排序 归并排序 快速排序 拓扑排序 堆排序 桶排序  递归算法递归的本质是函数调用函数本身*把大规模的问题不断地变小，再进行推导的过程 经典案例： 汉诺塔 迭代法的时间复杂度的计算 T(n)=2T(n-1)+O(1) = 2(2T(n-2))+2+1=2(2(2T(n-3)))+(4+2+1)…T(n)=2^kT(n-k)+(2^k-1) =&amp;gt;T(n)=2">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-08-03T14:41:42.710Z">
+<meta property="og:updated_time" content="2019-08-06T14:12:45.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="排序基本的排序算法 冒泡排序 插入排序 归并排序 快速排序 拓扑排序 堆排序 桶排序  递归算法递归的本质是函数调用函数本身*把大规模的问题不断地变小，再进行推导的过程 经典案例： 汉诺塔 迭代法的时间复杂度的计算 T(n)=2T(n-1)+O(1) = 2(2T(n-2))+2+1=2(2(2T(n-3)))+(4+2+1)…T(n)=2^kT(n-k)+(2^k-1) =&amp;gt;T(n)=2">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -77,11 +80,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <hr>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h3 id="基本的排序算法"><a href="#基本的排序算法" class="headerlink" title="基本的排序算法"></a>基本的排序算法</h3><ul>
+<li>冒泡排序</li>
+<li>插入排序</li>
+<li>归并排序</li>
+<li>快速排序</li>
+<li>拓扑排序</li>
+<li>堆排序</li>
+<li>桶排序</li>
+</ul>
+<h4 id="递归算法"><a href="#递归算法" class="headerlink" title="递归算法"></a>递归算法</h4><p>递归的本质是函数调用函数本身<br>*把大规模的问题不断地变小，再进行推导的过程</p>
+<p>经典案例： 汉诺塔</p>
+<p>迭代法的时间复杂度的计算</p>
+<p>T(n)=2<em>T(n-1)+O(1) = 2</em>(2<em>T(n-2))+2+1<br>=2</em>(2<em>(2</em>T(n-3)))+(4+2+1)…<br>T(n)=2^k<em>T(n-k)+(2^k-1) =&gt;T(n)=2</em>2^n -1<br>O(n) = 2^n</p>
+<h4 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h4><ul>
+<li>从问题的起始点出发，不断尝试</li>
+<li>返回一步甚至多步再做选择，直到抵达终点的过程</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/03/sort/" data-id="cjyvnb9w70000c4r0pga1q3dj" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/03/sort/" data-id="cjz9d18yr0006bkr0fwu1ybqq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -89,6 +110,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/08/12/call/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/03/array2/" id="article-nav-older" class="article-nav-link-wrap">
@@ -130,6 +160,10 @@
       <ul>
         
           <li>
+            <a href="/2019/08/12/call/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/03/sort/">(no title)</a>
           </li>
         
@@ -143,10 +177,6 @@
         
           <li>
             <a href="/2019/07/31/array/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/31/jsonp/">Jsonp的原理和实现</a>
           </li>
         
       </ul>
