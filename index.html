@@ -66,6 +66,43 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-8-14" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/14/8-14/" class="article-date">
+  <time datetime="2019-08-14T06:40:44.525Z" itemprop="datePublished">2019-08-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="JavaScript-运行机制"><a href="#JavaScript-运行机制" class="headerlink" title="JavaScript 运行机制"></a>JavaScript 运行机制</h2><p>JavaScript 语言是单线程的，在同一时间内只能做一件<br>事情。JavaScript的单线程和它的用途有关。作为浏览器<br>脚本语言，JavaScript的主要用途是与用户互动，以及操作<br>dom。因此只能是单线程，避免出现复杂的同步问题。</p>
+<h3 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h3><p>单线程就意味着，所有任务需要排队，前一个任务结束，<br>才会执行后一个任务。如果前一个任务耗时很长，后一<br>个任务就不得不一直等着。因为IO设备很慢，会堵塞线程，<br>于是所有的任务分为了两种，一种是同步任务，一种是<br>异步任务。同步任务指的是，在主线程上排队执行的<br>任务，只有前一个任务执行完毕，才能执行后一个任<br>务；异步任务指的是，不进入主线程、而进入”任务<br>队列”（task queue）的任务，只有”任务队列”通知<br>主线程，某个异步任务可以执行了，该任务才会进入<br>主线程执行。</p>
+<p>异步执行的运行机制如下（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）：</p>
+<ul>
+<li>所有同步任务都在主线程上执行，形成一个执行栈</li>
+<li>主线程之外，还存在一个任务队列。只要异步任务<br>有了运行结果，就在任务队列中放置一个事件。</li>
+<li>一旦执行栈中所有的同步任务执行完毕，系统就会<br>读取任务队列，那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</li>
+<li>主线程不断重复上面第三步。</li>
+</ul>
+<p>下图是主线程和任务队列的示意图<img src="http://www.ruanyifeng.com/blogimg/asset/2014/bg2014100801.jpg" alt="示意图"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://fieldguang.github.io/2019/08/14/8-14/" data-id="cjzbdtisl0000qsr0k0z9lz5x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-call" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/12/call/" class="article-date">
@@ -91,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/12/call/" data-id="cjz9d18yg0004bkr0aqkvwf5g" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/12/call/" data-id="cjzbdtit50007qsr034fm93f8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -135,7 +172,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/03/sort/" data-id="cjz9d18yr0006bkr0fwu1ybqq" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/03/sort/" data-id="cjzbdtisv0004qsr0wt8yt33p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/03/array2/" data-id="cjz9d18ye0002bkr0fmhrjka1" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/03/array2/" data-id="cjzbdtist0002qsr0gw5p2zer" class="article-share-link">Share</a>
       
       
     </footer>
@@ -236,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/08/01/ajax/" data-id="cjz9d18y70000bkr0h4dj1fx0" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/08/01/ajax/" data-id="cjzbdtiss0001qsr02dcx6z7n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -283,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/07/31/array/" data-id="cjz9d18yd0001bkr0b0dglbm8" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/07/31/array/" data-id="cjzbdtisu0003qsr0ht38wogm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -339,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/07/31/jsonp/" data-id="cjz9d18yh0005bkr06sut2yyq" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/07/31/jsonp/" data-id="cjzbdtisw0005qsr0ignjnfge" class="article-share-link">Share</a>
       
       
     </footer>
@@ -388,7 +425,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://fieldguang.github.io/2019/07/31/hello-world/" data-id="cjz9d18yf0003bkr0e57juu7w" class="article-share-link">Share</a>
+      <a data-url="https://fieldguang.github.io/2019/07/31/hello-world/" data-id="cjzbdtisx0006qsr0psbpydui" class="article-share-link">Share</a>
       
       
     </footer>
@@ -429,6 +466,10 @@
       <ul>
         
           <li>
+            <a href="/2019/08/14/8-14/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/12/call/">(no title)</a>
           </li>
         
@@ -442,10 +483,6 @@
         
           <li>
             <a href="/2019/08/01/ajax/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/07/31/array/">(no title)</a>
           </li>
         
       </ul>
